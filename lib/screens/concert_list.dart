@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/concert.dart';
-import '../providers/api_providers.dart';
+import 'package:concert/models/concert.dart';
+import 'package:concert/providers/api_providers.dart';
 import 'booking_list.dart';
 import 'concert_detail.dart';
 
@@ -13,8 +13,13 @@ class ConcertListScreen extends ConsumerWidget {
     final asyncConcerts = ref.watch(concertListProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Concerts'),
-        actions: [
+          title: const Text('Concerts'),
+          // Navigate back to the host app when Home is pressed
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context, rootNavigator: true).popUntil((route) => route.isFirst),
+          ),
+          actions: [
           TextButton(
             onPressed: () {
               Navigator.push(
